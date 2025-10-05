@@ -9,10 +9,12 @@ headers = {
     'Accept-Language': 'en-US,en;q=0.9',
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
 }
-queries = ["rtx 2060","rtx 2070","rtx 2080", 
-           "rtx 3050", "rtx 3060", "rtx 3070", "rtx 3080", "rtx 3090", 
-           "rtx 4060", "rtx 4070", "rtx 4080", "rtx 4090",
-           "rtx 5050", "rtx 5060", "rtx 5070", "rtx 5080", "rtx 5090"]
+queries = ["rtx 2060","rtx 2060 super", "rtx 2070","rtx 2070 super", "rtx 2080", "rtx 2080 super", "rtx 2080 ti",
+           "rtx 3050 6g", "rtx 3050 8g", "rtx 3060", "rtx 3060 ti", "rtx 3070", "rtx 3070 ti", "rtx 3080", "rtx 3080 ti", "rtx 3090", "rtx 3090 ti", 
+           "rtx 4060", "rtx 4060 ti", "rtx 4070", "rtx 4070 super", "rtx 4070 ti", "rtx 4070 ti super", "rtx 4080", "rtx 4080 super", "rtx 4090",
+           "rtx 5050", "rtx 5060", "rtx 5060 ti", "rtx 5070", "rtx 5070 ti", "rtx 5080", "rtx 5090"] 
+
+exclude = ["laptop", "PC" "hp", "lenovo", "fan", "kipas", "cover", "stiker", "baterai", "tower", "box", "plat", "rakit", "ssd"]
 
 with open("gpu_data_toped.csv", "w", newline="", encoding="utf-8") as f:
     writer = csv.writer(f)
@@ -36,7 +38,11 @@ with open("gpu_data_toped.csv", "w", newline="", encoding="utf-8") as f:
             price = price_elem.get_text(strip=True) if price_elem else ""
             shop = shop_elem.get_text(strip=True) if shop_elem else ""
 
+            if any(word in name.lower() for word in exclude):
+                continue
+
             writer.writerow([name, price, shop, q])
+
 
 # save_dir = "C:/Users/User/web-scraping-gpu-price/htmlss"
 # os.makedirs(save_dir, exist_ok=True)

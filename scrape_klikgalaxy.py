@@ -15,7 +15,7 @@ with open("gpu_data_kgal.csv", "w", newline="", encoding="utf-8") as f:
     writer = csv.writer(f)
     writer.writerow(["Nama", "Harga", "Toko"])  # header CSV
     while url:
-        response = requests.get(url,verify="C:/Users/ideapad/Downloads/klikgalaxy.crt",headers=headers)
+        response = requests.get(url,verify="C:/Users/User/Downloads/klikgalaxy.crt",headers=headers)
         # response = requests.get('https://www.tokopedia.com/search?st=&q=nvidia%20rtx%2040&srp_component_id=02.01.00.00&srp_page_id=&srp_page_title=&navsource=',headers=headers)
         # response = requests.get('https://enterkomputer.com/category/24/vga?showall=1759195954',headers=headers,verify="C:/Users/User/Downloads/enterkomputer.crt")
         # print(response.status_code)
@@ -38,7 +38,11 @@ with open("gpu_data_kgal.csv", "w", newline="", encoding="utf-8") as f:
             # toko = toko_elem.get_text(strip=True) if toko_elem else ""
             shop = "klikgalaxy"
 
+            if "rtx" not in name.lower():
+                continue
+
             writer.writerow([name, price, shop])
+        
         # next page
         next = soup.find("a", string=lambda t: t and "next" in t.lower())
         if next:
